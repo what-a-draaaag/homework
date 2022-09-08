@@ -1,4 +1,7 @@
-﻿namespace Task4
+﻿using System;
+using System.Numerics;
+
+namespace Task4
 {
     public class Task4
     {
@@ -17,15 +20,72 @@
  */
         internal static void PrintFrame(int width, int height, char frameChar = '*')
         {
-            throw new NotImplementedException();
+            char[,] array1;
+            array1 = new char[width, height];
+            for (int y = 0; y < array1.GetLength(1); y++)
+            {
+                for (int x = 0; x < array1.GetLength(0); x++)
+                {
+                    if (y == 0 || x == 0 || y == array1.GetLength(1) - 1 || x == array1.GetLength(0) - 1)
+                    {
+                        array1[x, y] = frameChar;
+                    }
+                    else
+                    {
+                        array1[x, y] = ' ';
+                    }
+                }
+            }
+            for (int y = 0; y < array1.GetLength(1); y++)
+            {
+                for (int x = 0; x < array1.GetLength(0); x++)
+                {
+                    Console.Write(array1[x, y]);
+                }
+                Console.Write("\n");
+            }
         }
-
-/*
- * Задание 4.2. Выполните предыдущее задание, пользуясь циклом while.
- */
+        /*
+         * Задание 4.2. Выполните предыдущее задание, пользуясь циклом while.
+         */
         internal static void PrintFrame2(int width, int height, char frameChar = '*')
         {
-            throw new NotImplementedException();
+            char[,] array1;
+            array1 = new char[width, height];
+
+            int y = 0;
+            int x = 0;
+            while (y < array1.GetLength(1))
+            {
+                while (x < array1.GetLength(0))
+                {
+                    if (y == 0 || x == 0 || y == array1.GetLength(1) - 1 || x == array1.GetLength(0) - 1)
+                    {
+                        array1[x, y] = frameChar;
+                    }
+                    else
+                    {
+                        array1[x, y] = ' ';
+                    }
+                    x++;
+                }
+                x = 0;
+                y++;
+            }
+
+            x = y = 0;
+            while (y < array1.GetLength(1))
+            {
+                while (x < array1.GetLength(0))
+                {
+                    Console.Write(array1[x, y]);
+                    x++;
+                }
+
+                Console.Write("\n");
+                x = 0;
+                y++;
+            }
         }
 
 
@@ -37,7 +97,14 @@
  */
         internal static long Gcd(long a, long b)
         {
-            throw new NotImplementedException();
+            if (a==0)
+            {
+                return b;
+            }
+            else
+            {
+                return Gcd(b % a, a);
+            }
         }
 
 /*
@@ -47,14 +114,26 @@
  */
         internal static double ExpTaylor(double x, int n)
         {
-            throw new NotImplementedException();
+            double exp = 1;
+            for (int i=1;i<=n;i++)
+            {
+                double cur = Math.Pow(x,i);
+                for (int j=2;j<=i;j++)
+                {
+                    cur /= j;
+                }
+                exp += cur;
+            }
+            return exp;
         }
 
         public static void Main(string[] args)
         {
-            PrintFrame(5, 3, '+');
-            throw new NotImplementedException(
-                "Вызовите здесь все перечисленные в классе функции, как это сделано в предыдущих заданиях");
+            PrintFrame(5, 5, '+');
+            Console.Write("\n");
+            PrintFrame2(5, 5, '+');
+            Console.WriteLine(Gcd(3,8));
+            Console.WriteLine(ExpTaylor(1,2));
         }
     }
 }
